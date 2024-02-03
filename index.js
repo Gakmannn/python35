@@ -200,3 +200,177 @@ console.log(0/0)
 
 // «Чистая» функция - это функция, которая выводит свои данные основываясь исключительно на свои входные данные и не вызывает побочных эффектов в приложении.
 
+// Создать объект, хранящий в себе отдельно числитель и знаменатель дроби, 
+// и следующие функции для работы с этим объектом.
+
+// 1 Функция сложения 2 - х объектов - дробей.
+// 2 Функция вычитания 2 - х объектов - дробей.
+// 3 Функция умножения 2 - х объектов - дробей.
+// 4 Функция деления 2 - х объектов - дробей.
+// 5 Функция сокращения объекта - дроби.
+
+function createFraction(numerator, denominator) {
+  return {
+    numerator,
+    denominator
+  }
+}
+
+function toCommonDenominator(fraction1, fraction2) {
+  fraction1 = {...fraction1}
+  fraction2 = {...fraction2}
+  const commonDenominator = fraction1.denominator * fraction2.denominator
+  fraction1.numerator = fraction1.numerator * fraction2.denominator
+  fraction2.numerator = fraction2.numerator * fraction1.denominator
+  fraction1.denominator = commonDenominator
+  fraction2.denominator = commonDenominator
+  return { fraction1, fraction2}
+}
+
+function reduceFraction(fraction) {
+  let min = Math.min(fraction.numerator, fraction.denominator)
+  for (min; min>1; min--) {
+    if (fraction.numerator%min==0 && fraction.denominator%min==0) {
+      fraction.numerator /= min
+      fraction.denominator /= min
+      break
+    }
+  }
+  return {...fraction}
+}
+
+function fractionSum(fraction1, fraction2) {
+  const fractions = toCommonDenominator(fraction1, fraction2)
+  const result = {
+    numerator: fractions.fraction1.numerator + fractions.fraction2.numerator,
+    denominator: fractions.fraction1.denominator
+  }
+  return reduceFraction(result)
+}
+
+function fractionDeduction(fraction1, fraction2) {
+  const fractions = toCommonDenominator(fraction1, fraction2)
+  const result = {
+    numerator: fractions.fraction1.numerator - fractions.fraction2.numerator,
+    denominator: fractions.fraction1.denominator
+  }
+  return reduceFraction(result)
+}
+
+function fractionMultiplicatin(fraction1, fraction2) {
+  const result = {
+    numerator: fraction1.numerator * fraction2.numerator,
+    denominator: fraction1.denominator * fraction2.denominator
+  }
+  return reduceFraction(result)
+}
+
+function fractionDivision(fraction1, fraction2) {
+  const result = {
+    numerator: fraction1.numerator * fraction2.denominator,
+    denominator: fraction1.denominator * fraction2.numerator
+  }
+  return reduceFraction(result)
+}
+
+// Converter
+
+const nuberToConvert = document.getElementById('number')
+const convertFrom = document.getElementById('from')
+const convertTo = document.getElementById('to')
+const convertButton = document.getElementById('convert')
+const convertOut = document.getElementById('out')
+
+convertButton.addEventListener('click', ()=>{
+  if (!nuberToConvert.value) {
+    convertOut.innerText = 'Введите значение'
+    return
+  }
+  if (convertFrom.value == convertTo.value) {
+    convertOut.innerText = nuberToConvert.value
+    return
+  }
+  const arr = ['b', 'kb', 'mb', 'gb']
+  const indexFrom = arr.indexOf(convertFrom.value)
+  const indexTo = arr.indexOf(convertTo.value)
+  const multiplier = 1024**(indexFrom + 1)
+  const divider = 1024**(indexTo + 1)
+  convertOut.innerText = nuberToConvert.value * multiplier / divider
+})
+
+// !Методы примитивов
+
+obj.sayMyName = function() {
+  console.log(this.name)
+}
+
+obj.sayMyName()
+
+let string = 'asd'
+string.tag = 'mystring'
+console.log(string.toUpperCase())
+console.log(string.tag)
+console.log(String('sdfsdfsd'))
+console.log(Number('12'))
+console.log(Number(12))
+console.log(Boolean('12'))
+console.log(Boolean(''))
+
+// Все примитивы, кроме null и undefined, предоставляют множество полезных методов.
+// Формально эти методы работают с помощью временных объектов, но движки JavaScript внутренне очень хорошо оптимизируют этот процесс, так что их вызов не требует много ресурсов.
+
+// !Числа
+
+let billion = 1_000_000_000
+billion = 1e9;  // 1 миллиард, буквально: 1 и 9 нулей
+let ms = 1e-6; // шесть нулей слева от 1
+console.log(0xff)
+console.log(0xff.toString(2))
+console.log(0xff.toString(3))
+console.log(0xff.toString(4))
+console.log(0xff.toString(36))
+
+// !Округление
+// ?Math.floor
+// Округление в меньшую сторону: 3.1 становится 3, а - 1.1 — -2.
+// ?Math.ceil
+// Округление в большую сторону: 3.1 становится 4, а - 1.1 — -1.
+// ?Math.round
+// Округление до ближайшего целого: 3.1 становится 3, 3.6 — 4, а - 1.1 — -1.
+// ?Math.trunc (не поддерживается в Internet Explorer)
+// Производит удаление дробной части без округления: 3.1 становится 3, а - 1.1 — -1.
+
+let num = 12.34243234
+console.log(num.toFixed(3)) // "12.342"
+
+// !!!Потеря точности
+
+// ?isNaN(value) преобразует значение в число и проверяет является ли оно NaN
+console.log(isNaN(NaN) ) // true
+console.log(isNaN("str")) // true
+console.log(isNaN(12)) // false
+console.log(isNaN(Infinity)) // false
+
+// !Значение NaN уникально тем, что оно не является равным ничему другому, даже самому себе:
+
+console.log(NaN === NaN) // false
+
+// ?isFinite(value) преобразует аргумент в число и возвращает true, если оно является обычным числом, т.е.не NaN / Infinity / -Infinity:
+
+console.log(isFinite("15")); // true
+console.log(isFinite("str")); // false, потому что специальное значение: NaN
+console.log(isFinite(Infinity)); // false, потому что специальное значение: Infinity
+
+// ?Сравнение Object.is
+// Существует специальный метод Object.is, который сравнивает значения примерно как ===, но более надёжен в двух особых ситуациях:
+
+// Работает с NaN: Object.is(NaN, NaN) === true, здесь он хорош.
+// Значения 0 и - 0 разные: Object.is(0, -0) === false, это редко используется, но технически эти значения разные.
+// Во всех других случаях Object.is(a, b) идентичен a === b.
+
+console.log(parseInt('100px')) // 100
+console.log(parseFloat('12.5em')) // 12.5
+
+// ?Math.random()
+// !Возвращает псевдослучайное число в диапазоне от 0(включительно) до 1(но не включая 1)
+

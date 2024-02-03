@@ -11,12 +11,33 @@
       margin: 5px;
       border-radius: 5px;
       text-decoration: none;
+      background: wheat;
     }
   </style>
 </head>
 <body>
-  <a href="https://disk.yandex.ru/d/rvxmhiSIhDSMCA">Материалы</a>
-  <a href="https://disk.yandex.ru/d/LADtnZajP19xeQ">Полный курс HTML</a>
+  <div id="converter">
+    <input id="number" type="number">
+    <select id="from">
+      <option value="gb">Gb</option>
+      <option value="mb">Mb</option>
+      <option value="kb">Kb</option>
+      <option value="b">b</option>
+    </select>
+    <span>to</span>
+    <select id="to">
+      <option value="gb">Gb</option>
+      <option value="mb">Mb</option>
+      <option value="kb">Kb</option>
+      <option value="b">b</option>
+    </select>
+    <button id="convert">GO!</button>
+    <span id="out"></span>
+  </div>
+  <div style="display: flex;">
+    <a href="https://disk.yandex.ru/d/rvxmhiSIhDSMCA">Материалы</a>
+    <a href="https://disk.yandex.ru/d/LADtnZajP19xeQ">Полный курс HTML</a>
+  </div>
   <script src="index.js"></script>
 </body>
 </html>
