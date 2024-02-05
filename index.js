@@ -374,3 +374,74 @@ console.log(parseFloat('12.5em')) // 12.5
 // ?Math.random()
 // !Возвращает псевдослучайное число в диапазоне от 0(включительно) до 1(но не включая 1)
 
+let company = { // тот же самый объект, сжатый для краткости
+  sales: [{ name: 'John', salary: 1000 }, { name: 'Alice', salary: 600 }],
+  development: {
+    sites: [{ name: 'Peter', salary: 2000 }, { name: 'Alex', salary: 1800 }],
+    internals: [{ name: 'Jack', salary: 1300 }]
+  }
+};
+
+// Функция для подсчёта суммы зарплат
+function sumSalaries(department) {
+  if (Array.isArray(department)) { // случай (1)
+    return department.reduce((prev, current) => prev + current.salary, 0); // сумма элементов массива
+  } else { // случай (2)
+    let sum = 0;
+    for (let subdep of Object.values(department)) {
+      console.log(subdep)
+      sum += sumSalaries(subdep); // рекурсивно вызывается для подотделов, суммируя результаты
+      console.log(sum)
+    }
+    return sum;
+  }
+}
+
+sumSalaries(company)
+
+function arrayCompare(arr1, arr2, strict) {
+  if (arr1.length != arr2.length) return false
+  for (let i = 0; i < arr1.length; i++) {
+    if ((typeof arr1[i] == 'object' && typeof arr2[i] != 'object') 
+        || (typeof arr1[i] != 'object' && typeof arr2[i] == 'object')) return false
+    if (typeof arr1[i] == 'object') {
+      const entr1 = Object.entries(arr1[i])
+      const entr2 = Object.entries(arr2[i])
+      if (entr1.length != entr2.length) return false
+      for (let j = 0; j < entr1.length; j++) {
+        if (!arrayCompare(entr1[j], entr2[j], strict)) return false
+      }
+    }
+    else {
+      if (strict) {
+        if (arr1[i] !== arr2[i]) return false
+      } else {
+        if (arr1[i] != arr2[i]) return false
+      }
+    }
+  }
+  return true
+}
+
+console.log(arrayCompare([1, [2], 3, { a: 20, b: { c: 5 } }], [1, [2], 3, { a: 20, b: { c: 5 } }], true))
+
+// If you are using VS Code extension supported by Console Ninja, such as live-server - extension, or live - preview - extension, or node, then you may simply start it after checking that it is enabled in the extension settings.
+
+
+function cached() {
+  const cache = {}
+  console.log(cache)
+  return function fib(n) {
+    if (cache[n]) return cache[n]
+    if (n <= 1) {
+      return n
+    } else {
+      let res = fib(n - 1) + fib(n - 2)
+      cache[n] = res
+      return res
+    }
+  }
+}
+
+const cachedFib = cached()
+console.log(cachedFib(75))
