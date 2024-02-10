@@ -1,3 +1,12 @@
+"use strict"
+
+console.log(this)
+console.log(window)
+console.log(window.converter)
+
+const converter = 'tyc'
+console.log(converter)
+
 const obj = {
   name: 'asd',
   age: 20,
@@ -27,7 +36,7 @@ for (let key in obj) {
 // !Переменная, которой присвоен объект, хранит не сам объект, а его «адрес в памяти» – другими словами, «ссылку» на него.
 // !Клонирование и объединение, Object.assign
 
-user = {
+const user = {
   name: "John",
   age: 30,
   drivePermission: {
@@ -307,7 +316,7 @@ obj.sayMyName = function() {
 obj.sayMyName()
 
 let string = 'asd'
-string.tag = 'mystring'
+// string.tag = 'mystring'
 console.log(string.toUpperCase())
 console.log(string.tag)
 console.log(String('sdfsdfsd'))
@@ -445,3 +454,80 @@ function cached() {
 
 const cachedFib = cached()
 console.log(cachedFib(75))
+
+console.log(JSON.stringify(obj))
+console.log(JSON.parse('{"name":"asd","age":20}'))
+
+let a1 = 10
+let a2 = 20
+
+;[a1, a2] = [a2, a1]
+console.log(a1, a2)
+
+window.onClick = () => {
+  alert('Why???')
+}
+
+const pushTheButton = document.getElementById('pushTheButton')
+const pushTheButton2 = document.getElementById('pushTheButton2')
+const anchor = document.getElementById('anchor')
+pushTheButton.onclick = ()=>{
+  alert('Why2???')
+}
+// переназначили
+pushTheButton.onclick = ()=>{
+  alert('Why3???')
+}
+pushTheButton.addEventListener('click', (e) => {
+  console.log(e.target)
+  alert('Nooo!!!!')
+})
+pushTheButton.addEventListener('click', (event)=>{
+  alert('Nooo more!!!!')
+}, { once :true})
+
+pushTheButton2.onclick = function() {
+  this.innerText = 'Просил же не нажимать'
+}
+pushTheButton2.addEventListener('click', function (e) {
+  console.log(e)
+  console.log(this)
+  e.done = true
+})
+
+const bodyClick = (e) => {
+  if (e.done) return
+  console.log('body')
+}
+
+document.addEventListener('click', bodyClick)
+
+document.removeEventListener('click', bodyClick)
+
+pushTheButton2.click()
+
+anchor?.addEventListener('click', (e)=>{
+  e.preventDefault()
+})
+
+// Есть три способа назначения обработчиков событий:
+
+// Атрибут HTML: onclick = "...".
+// DOM - свойство: elem.onclick = function.
+// Специальные методы: elem.addEventListener(event, handler[, phase]) для добавления, removeEventListener для удаления.
+// HTML - атрибуты используются редко потому, что JavaScript в HTML - теге выглядит немного странно.К тому же много кода там не напишешь.
+// DOM - свойства вполне можно использовать, но мы не можем назначить больше одного обработчика на один тип события.Во многих случаях с этим ограничением можно мириться.
+// Последний способ самый гибкий, однако нужно писать больше всего кода.Есть несколько типов событий, которые работают только через него, например, DOMContentLoaded.Также addEventListener поддерживает объекты в качестве обработчиков событий.В этом случае вызывается метод объекта handleEvent.
+// Не важно, как вы назначаете обработчик – он получает объект события первым аргументом.Этот объект содержит подробности о том, что произошло.
+// Мы изучим больше о событиях и их типах в следующих главах.
+
+// При наступлении события – самый глубоко вложенный элемент, на котором оно произошло, помечается как «целевой» (event.target).
+// Затем событие сначала двигается вниз от корня документа к event.target, по пути вызывая обработчики, поставленные через addEventListener(...., true), где true – это сокращение для { capture: true }.
+// Далее обработчики вызываются на целевом элементе.
+// Далее событие двигается от event.target вверх к корню документа, по пути вызывая обработчики, поставленные через on < event > и addEventListener без третьего аргумента или с третьим аргументом равным false.
+// Каждый обработчик имеет доступ к свойствам события event:
+
+// event.target – самый глубокий элемент, на котором произошло событие.
+// event.currentTarget(=this) – элемент, на котором в данный момент сработал обработчик(тот, на котором «висит» конкретный обработчик)
+// event.eventPhase – на какой фазе он сработал(погружение = 1, фаза цели = 2, всплытие = 3).
+// Любой обработчик может остановить событие вызовом event.stopPropagation(), но делать это не рекомендуется, так как в дальнейшем это событие может понадобиться, иногда для самых неожиданных вещей.
