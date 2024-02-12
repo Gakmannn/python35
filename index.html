@@ -13,6 +13,25 @@
       text-decoration: none;
       background: wheat;
     }
+    .display {
+      max-width: 100px; 
+      margin: 50px auto 10px; 
+      text-align: center; 
+      color: white; 
+      background: green;
+      height: 30px;
+      font-size: 28px;
+    }
+    .numpad {
+      max-width: 100px; 
+      margin: 10px auto 50px;
+    }
+    .numpad div {
+      display: flex; 
+      justify-content: space-between; 
+      margin: 10px 0;
+    }
+
   </style>
 </head>
 <body>
@@ -34,6 +53,31 @@
     <button id="convert">GO!</button>
     <span id="out"></span>
   </div>
+
+<div class="display">
+</div>
+
+<div class="numpad">
+  <div >
+    <button data-num="1"><span>1</span></button>
+    <button data-num="2">2</button>
+    <button data-num="3">3</button>
+  </div>
+  <div>
+    <button data-num="4">4</button>
+    <button data-num="5">5</button>
+    <button data-num="6">6</button>
+  </div>
+  <div>
+    <button data-num="7">7</button>
+    <button data-num="8">8</button>
+    <button data-num="9">9</button>
+  </div>
+  <div style="justify-content: center;">
+    <button data-num="0">0</button>
+  </div>
+</div>
+
   <div style="display: flex;">
     <a href="https://disk.yandex.ru/d/rvxmhiSIhDSMCA">Материалы</a>
     <a href="https://disk.yandex.ru/d/LADtnZajP19xeQ">Полный курс HTML</a>

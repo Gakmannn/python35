@@ -531,3 +531,71 @@ anchor?.addEventListener('click', (e)=>{
 // event.currentTarget(=this) – элемент, на котором в данный момент сработал обработчик(тот, на котором «висит» конкретный обработчик)
 // event.eventPhase – на какой фазе он сработал(погружение = 1, фаза цели = 2, всплытие = 3).
 // Любой обработчик может остановить событие вызовом event.stopPropagation(), но делать это не рекомендуется, так как в дальнейшем это событие может понадобиться, иногда для самых неожиданных вещей.
+
+
+// !Делегирование событий
+// Суть в навешивании обработчика на какой-то блок, в котором лежат необходимые элементы, и проверке, является ли элемен искомым, когда событие произошло
+
+// !Метод элемента сlosest(CSS-селектор), возвращает сам элемент, или ближайшего предка, соответствующего селектору. Если таких предков не существует,- вернёт undefined
+
+const numpadDiv = document.querySelector('.numpad')
+const displayDiv = document.querySelector('.display')
+
+numpadDiv.addEventListener('click', (e)=>{
+  const target = e.target.closest('button')
+  if (target?.tagName != 'BUTTON') return
+  if (displayDiv.textContent.length == 6) displayDiv.textContent = ''
+  displayDiv.textContent += target.dataset.num 
+})
+
+String.prototype.boom = function () {
+  return this + 'boom!'
+}
+
+console.log('Big bada'.boom())
+
+let object = {
+  0: "Hello",
+  1: "world!",
+  length: 2,
+}
+
+object.__proto__ = Array.prototype
+
+console.log(object.join(','))
+object.forEach(element => {
+  console.log(element)
+})
+console.log(object.includes('Hello'))
+
+let objArr = Array.from(object)
+console.log(objArr)
+
+
+class User {
+  planet = 'earth'
+  constructor(name, age, planet) {
+    this.name = name;
+    this.age = age
+    if (planet) this.planet = planet
+  }
+  sayHi() {
+    return this.name+' '+this.age + ' лет'
+  }
+}
+
+// Использование:
+let userC1 = new User("Иван",1);
+console.log(userC1.sayHi())
+console.log(userC1)
+let userC2 = new User("Ваня",10);
+console.log(userC2.sayHi())
+console.log(userC2)
+let userC3 = new User("Олег",20, 'Марс');
+console.log(userC3.sayHi())
+console.log(userC3)
+
+// не работает с модулями
+// document.write('<button class="class">text</button>')
+
+document.body.insertAdjacentHTML('beforeend', '<button class="class">text</button>')
