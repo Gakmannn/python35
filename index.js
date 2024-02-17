@@ -599,3 +599,125 @@ console.log(userC3)
 // document.write('<button class="class">text</button>')
 
 document.body.insertAdjacentHTML('beforeend', '<button class="class">text</button>')
+
+const t1 = 'To be, or not to be, that is the question...'
+const t2 = 'William Shakespeare, from "Hamlet"'
+const monologDiv = document.getElementById('monolog')
+
+function printText(text, text2) {
+  let i
+  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p></p>`)}, i*200)
+  for (i=0; i<text.length; i++) {
+    const char = text[i]
+    setTimeout(function () { monologDiv.insertAdjacentHTML('beforeend', char)},i*200)
+  }
+  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p>${text2}</p>`)}, i*200)
+}
+
+function printText2(text, text2) {
+  let i
+  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p></p>`)}, i*200)
+  const words = text.split(' ')
+  for (i = 0; i < words.length; i++) {
+    const word = words[i]
+    setTimeout(function () { monologDiv.insertAdjacentHTML('beforeend', word+' ')},i*200)
+  }
+  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p>${text2}</p>`)}, i*200)
+}
+
+// printText(t1,t2)
+printText2(t1,t2)
+
+
+// Создать массив «Список покупок». 
+
+// Каждый элемент массива является объектом, который содержит название продукта, необходимое количество и куплен или нет.Написать несколько функций для работы с таким массивом.
+
+// 1. Вывод всего списка на экран таким образом, чтобы сначала 
+// шли некупленные продукты, а потом – купленные.
+
+// 2. Добавление покупки в список.Учтите, что при добавлении покупки с уже существующим в списке продуктом, необходимо увеличивать количество в существующей покупке, а не добавлять новую. 
+
+// 3. Покупка продукта.Функция принимает название продукта и отмечает его как купленный
+
+const purchasesUl = document.getElementById('purchases')
+const purchaseNameInput = document.getElementById('purchaseName')
+const purchaseCountInput = document.getElementById('purchaseCount')
+const addPurchaseButton = document.getElementById('addPurchase')
+const setPurchasedButton = document.getElementById('setPurchased')
+
+class Goods {
+  constructor(name, count, buyed=false) {
+    this.name = name
+    this.count = count
+    this.buyed = buyed
+  }
+}
+
+class PurchaseList {
+  purchaseList = [
+    new Goods('Сыр', 1, true),
+    {name: 'Колбаса', count: 1, buyed: true},
+    {name: 'Хлеб', count: 1, buyed: false},
+    {name: 'Молоко', count: 1, buyed: false},
+    {name: 'Яйцо', count: 10, buyed: false},
+  ]
+
+  printPurchase() {
+    const tempList = [...this.purchaseList]
+    tempList.sort((a,b)=>a.buyed-b.buyed)
+    let html = ''
+    tempList.forEach(el=>{
+      html+=`<li ${el.buyed?'style="color:green"':''}>${el.name} - ${el.count}</li>`
+    })
+    purchasesUl.innerHTML = html
+  }
+  
+  addToPurchase(name, count) {
+    const elem = this.purchaseList.find(el => el.name == name)
+    if (elem) {
+      elem.count += count
+    } else {
+      this.purchaseList.push(new Goods(name, count))
+    }
+  }
+  
+  setPurchased(name) {
+    const elem = this.purchaseList.find(el => el.name == name)
+    if (elem) elem.buyed = true
+  }
+
+}
+
+const myList = new PurchaseList()
+myList.printPurchase()
+
+addPurchaseButton.addEventListener('click', ()=>{
+  myList.addToPurchase(purchaseNameInput.value, +purchaseCountInput.value)
+  purchaseNameInput.value = ''
+  purchaseCountInput.value = ''
+  myList.printPurchase()
+})
+
+setPurchasedButton.addEventListener('click', ()=>{
+  myList.setPurchased(purchaseNameInput.value)
+  purchaseNameInput.value = ''
+  purchaseCountInput.value = ''
+  myList.printPurchase()
+})
+
+
+function myFunc(a,b) {
+  return a+b
+  // return undefined
+}
+
+const myArrowFunc = () => 2
+const myArrowFunc2 = () => {return 2}
+const myArrowFunc3 = () => {
+  // return undefined
+}
+
+const funcResult = myFunc(2,2)
+console.log(funcResult)
+console.log(myFunc(2,2))

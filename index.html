@@ -54,29 +54,44 @@
     <span id="out"></span>
   </div>
 
-<div class="display">
+
+<div style="display: flex; justify-content: space-between;">
+  <div style="display: flex; align-items: center;">
+    <ul id="purchases"></ul>
+    <div>
+      <input style="width: 148px;" id="purchaseName" type="text" placeholder="Название товара">
+      <input style="width: 78px;" id="purchaseCount" type="text" placeholder="Количество">
+      <br>
+      <button id="addPurchase">Добавить</button>
+      <button id="setPurchased">Отметить купленным</button>
+    </div>
+  </div>
+  <div>
+    <div class="display">
+    </div>
+    <div class="numpad">
+      <div >
+        <button data-num="1"><span>1</span></button>
+        <button data-num="2">2</button>
+        <button data-num="3">3</button>
+      </div>
+      <div>
+        <button data-num="4">4</button>
+        <button data-num="5">5</button>
+        <button data-num="6">6</button>
+      </div>
+      <div>
+        <button data-num="7">7</button>
+        <button data-num="8">8</button>
+        <button data-num="9">9</button>
+      </div>
+      <div style="justify-content: center;">
+        <button data-num="0">0</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="numpad">
-  <div >
-    <button data-num="1"><span>1</span></button>
-    <button data-num="2">2</button>
-    <button data-num="3">3</button>
-  </div>
-  <div>
-    <button data-num="4">4</button>
-    <button data-num="5">5</button>
-    <button data-num="6">6</button>
-  </div>
-  <div>
-    <button data-num="7">7</button>
-    <button data-num="8">8</button>
-    <button data-num="9">9</button>
-  </div>
-  <div style="justify-content: center;">
-    <button data-num="0">0</button>
-  </div>
-</div>
 
   <div style="display: flex;">
     <a href="https://disk.yandex.ru/d/rvxmhiSIhDSMCA">Материалы</a>
@@ -86,6 +101,7 @@
   <input value="Нажми меня" onclick="onClick()" type="button">
   <input id="pushTheButton" value="Нажми меня2" type="button">
   <button id="pushTheButton2">Не нажимай</button>
+  <div id="monolog"></div>
   <script type="module" src="index.js"></script>
 </body>
 </html>
