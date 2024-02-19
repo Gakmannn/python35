@@ -543,6 +543,7 @@ const displayDiv = document.querySelector('.display')
 
 numpadDiv.addEventListener('click', (e)=>{
   const target = e.target.closest('button')
+  // if (target && target.tagName != 'BUTTON') return
   if (target?.tagName != 'BUTTON') return
   if (displayDiv.textContent.length == 6) displayDiv.textContent = ''
   displayDiv.textContent += target.dataset.num 
@@ -721,3 +722,36 @@ const myArrowFunc3 = () => {
 const funcResult = myFunc(2,2)
 console.log(funcResult)
 console.log(myFunc(2,2))
+
+function numberToText(n) {
+  if (n < -99 || n > 99) return 'Неверное число'
+  let minusStr = ''
+  let sN = ''
+  const numberWithMinus = n.toString()
+  if (numberWithMinus[0] == '-') {
+    minusStr = 'минус '
+    sN = numberWithMinus.slice(1)
+  } else {
+    sN = n.toString()
+  }
+  const oneNumber = ['ноль', 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять']
+  const secondOfTen = ['десять', 'одиннадцать', 'двенадцать', 'тринадцать', 'четырнадцать', 'пятьнадцать', 'шестьнадцать', 'семьнадцать', 'восемьнадцать', 'девятьнадцать']
+  const firstOfMoreTen = [, , 'двадцать', 'тридцать', 'сорок', 'пятьдесят', 'шестьдесят', 'семьдесят', 'восемьдесят', 'девяносто']
+  if (sN.length == 1) {
+    return minusStr + oneNumber[+sN[0]]
+  }
+  if (sN.length == 2) {
+    if (sN[0] == '1') {
+      return minusStr + secondOfTen[+sN[1]]
+    }
+    if (sN[1] == '0') {
+      return minusStr + firstOfMoreTen[+sN[0]]
+    }
+    return minusStr + firstOfMoreTen[+sN[0]] + ' ' + oneNumber[+sN[1]]
+  }
+}
+
+console.log(numberToText(35))
+console.log(numberToText(-88))
+console.log(numberToText(11))
+console.log(numberToText(2))
