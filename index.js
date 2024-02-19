@@ -751,6 +751,10 @@ function numberToText(n) {
   }
 }
 
+console.log(Math.trunc(3.1))
+console.log(Math.round(5.49))
+console.log(Math.round(5.5))
+
 console.log(numberToText(35))
 console.log(numberToText(-88))
 console.log(numberToText(11))
