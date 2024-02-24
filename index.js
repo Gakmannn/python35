@@ -648,12 +648,61 @@ const addPurchaseButton = document.getElementById('addPurchase')
 const setPurchasedButton = document.getElementById('setPurchased')
 
 class Goods {
+  #name
   constructor(name, count, buyed=false) {
-    this.name = name
+    this.#name = name
     this.count = count
     this.buyed = buyed
+    this.#isGood()
+  }
+  get name() {
+    return this.#name
+  }
+  #isGood() {
+    return true
+  }
+  ticked() {
+    return this.name
   }
 }
+
+class ExtraGoods extends Goods {
+  static #id = 0
+  constructor(name, count, buyed = false, created) {
+    super(name, count, buyed)
+    this.created = created
+    this.id = ++ExtraGoods.#id
+  }
+  isFresh() {
+    return true 
+  }
+  ticked() {
+    return super.ticked() + this.created
+  }
+  static get lastId() {
+    return ExtraGoods.#id
+  }
+}
+
+ExtraGoods.staticVal = 1
+
+const good = new Goods('Сыр', 1, true)
+const exGood = new ExtraGoods('Сыр', 1, true, Date.now())
+const exGood1 = new ExtraGoods('Сыр', 1, true, Date.now())
+const exGood2 = new ExtraGoods('Сыр', 1, true, Date.now())
+console.log(exGood.created)
+console.log(good.ticked())
+console.log(exGood.ticked())
+console.log(good instanceof Goods)
+console.log(good instanceof ExtraGoods)
+console.log(exGood instanceof Goods)
+console.log(exGood instanceof ExtraGoods)
+console.log(exGood.id)
+console.log(exGood1.id)
+console.log(exGood2.id)
+console.log(ExtraGoods.lastId)
+
+exGood.isFresh()
 
 class PurchaseList {
   purchaseList = [
@@ -759,3 +808,35 @@ console.log(numberToText(35))
 console.log(numberToText(-88))
 console.log(numberToText(11))
 console.log(numberToText(2))
+
+class PowerArray extends Array {
+  isEmpty() {
+    return this.length === 0
+  }
+}
+
+let arr1 = new PowerArray(1, 2, 5, 10, 50)
+console.log(arr1.isEmpty()) // false
+
+let filteredArr = arr1.filter(item => item >= 10)
+console.log(filteredArr) // 10, 50
+console.log(filteredArr.isEmpty()) // false
+
+class ExtendedDate extends Date {
+
+}
+console.log(ExtendedDate.now())
+
+window.onerror = function (msg, url, lineNo, columnNo, error) {
+  console.log(error)
+  return false
+}
+
+// 'abc'.map()
+
+// try {
+//   'abc'.map()
+// } catch (e) {
+//   console.log(e)
+//   throw e
+// }
