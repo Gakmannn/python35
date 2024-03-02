@@ -55,8 +55,8 @@ console.log('{}.toString()', {}.toString())
 console.log('obj1.toString() == {}.toString()', obj1.toString() == {}.toString())
 
 console.log('[1, 2, 3] == [1, 2, 3]', [1, 2, 3] == [1, 2, 3])
-console.log('[1, 2, 3].toString() == [1, 2, 3].toString()', [1, 2, 3].toString(),  
-[1, 2, 3].toString() == [1, 2, 3].toString())
+console.log('[1, 2, 3].toString() == [1, 2, 3].toString()', [1, 2, 3].toString(),
+  [1, 2, 3].toString() == [1, 2, 3].toString())
 
 
 console.log('Object', Object)
@@ -73,7 +73,7 @@ let clone = {} // новый пустой объект
 // }
 
 // 2 метод - Object.assign
-Object.assign(clone, user, {drivePermission:{...user.drivePermission}})
+Object.assign(clone, user, { drivePermission: { ...user.drivePermission } })
 // clone = Object.assign({}, user, {drivePermission:{...user.drivePermission}})
 // user.drivePermission.C = true
 console.log(clone)
@@ -134,9 +134,9 @@ console.log(`'1' === '1'`, '1' === '1') // True
   значение «null» можно строгим сравнением «x === null».
 */
 
-let b 
+let b
 
-if (a==1) {
+if (a == 1) {
   b = 2
 } else {
   b = 5
@@ -154,7 +154,7 @@ function func1() {
 }
 
 // Function Expression. Не всплывает. Доступна после присваивания (ниже по коду)
-const func2 = function(a) {
+const func2 = function (a) {
   return a * 2
 }
 
@@ -169,32 +169,32 @@ console.log(a = func3(a)) // 198
 console.log(func4(a)) // 396
 
 {
-  
+
   let obj, clone, a, b
-  console.log(obj, clone , a, b)
-  
+  console.log(obj, clone, a, b)
+
 }
 
-function newFunc(a,b) {
+function newFunc(a, b) {
   // arguments не доступен в стрелочной функции. Представляет из себя массивоподобный объект с аргументами, переданными функции
   console.log(arguments)
   // let a = arguments[0]
   // let b = arguments[1]
-  return a+b*b+a/b
+  return a + b * b + a / b
 }
 
 // ... в парамеррах функции передают оставшиеся параметры в переменную, следующую за точками
-function newFunc2(a,b, ...rest) {
+function newFunc2(a, b, ...rest) {
   console.log(rest)
   // let a = rest[0]
   // let b = rest[1]
-  return a+b*b+a/b
+  return a + b * b + a / b
 }
 
-console.log(newFunc(1465,a+b,234,234,234,234,234,234,2))
-console.log(newFunc2(1465,a+b,234,234,234,234,234,234,2))
+console.log(newFunc(1465, a + b, 234, 234, 234, 234, 234, 234, 2))
+console.log(newFunc2(1465, a + b, 234, 234, 234, 234, 234, 234, 2))
 
-console.log(0/0)
+console.log(0 / 0)
 
 // «Чистые» функции - это любые функции, выходные данные которых получены исключительно из их входных данных и не вызывают побочных эффектов в приложении.Математические функции являются примерами «чистых» функций. 
 
@@ -226,26 +226,26 @@ function createFraction(numerator, denominator) {
 }
 
 function toCommonDenominator(fraction1, fraction2) {
-  fraction1 = {...fraction1}
-  fraction2 = {...fraction2}
+  fraction1 = { ...fraction1 }
+  fraction2 = { ...fraction2 }
   const commonDenominator = fraction1.denominator * fraction2.denominator
   fraction1.numerator = fraction1.numerator * fraction2.denominator
   fraction2.numerator = fraction2.numerator * fraction1.denominator
   fraction1.denominator = commonDenominator
   fraction2.denominator = commonDenominator
-  return { fraction1, fraction2}
+  return { fraction1, fraction2 }
 }
 
 function reduceFraction(fraction) {
   let min = Math.min(fraction.numerator, fraction.denominator)
-  for (min; min>1; min--) {
-    if (fraction.numerator%min==0 && fraction.denominator%min==0) {
+  for (min; min > 1; min--) {
+    if (fraction.numerator % min == 0 && fraction.denominator % min == 0) {
       fraction.numerator /= min
       fraction.denominator /= min
       break
     }
   }
-  return {...fraction}
+  return { ...fraction }
 }
 
 function fractionSum(fraction1, fraction2) {
@@ -290,7 +290,7 @@ const convertTo = document.getElementById('to')
 const convertButton = document.getElementById('convert')
 const convertOut = document.getElementById('out')
 
-convertButton.addEventListener('click', ()=>{
+convertButton.addEventListener('click', () => {
   if (!nuberToConvert.value) {
     convertOut.innerText = 'Введите значение'
     return
@@ -302,14 +302,14 @@ convertButton.addEventListener('click', ()=>{
   const arr = ['b', 'kb', 'mb', 'gb']
   const indexFrom = arr.indexOf(convertFrom.value)
   const indexTo = arr.indexOf(convertTo.value)
-  const multiplier = 1024**(indexFrom + 1)
-  const divider = 1024**(indexTo + 1)
+  const multiplier = 1024 ** (indexFrom + 1)
+  const divider = 1024 ** (indexTo + 1)
   convertOut.innerText = nuberToConvert.value * multiplier / divider
 })
 
 // !Методы примитивов
 
-obj.sayMyName = function() {
+obj.sayMyName = function () {
   console.log(this.name)
 }
 
@@ -355,7 +355,7 @@ console.log(num.toFixed(3)) // "12.342"
 // !!!Потеря точности
 
 // ?isNaN(value) преобразует значение в число и проверяет является ли оно NaN
-console.log(isNaN(NaN) ) // true
+console.log(isNaN(NaN)) // true
 console.log(isNaN("str")) // true
 console.log(isNaN(12)) // false
 console.log(isNaN(Infinity)) // false
@@ -411,8 +411,8 @@ sumSalaries(company)
 function arrayCompare(arr1, arr2, strict) {
   if (arr1.length != arr2.length) return false
   for (let i = 0; i < arr1.length; i++) {
-    if ((typeof arr1[i] == 'object' && typeof arr2[i] != 'object') 
-        || (typeof arr1[i] != 'object' && typeof arr2[i] == 'object')) return false
+    if ((typeof arr1[i] == 'object' && typeof arr2[i] != 'object')
+      || (typeof arr1[i] != 'object' && typeof arr2[i] == 'object')) return false
     if (typeof arr1[i] == 'object') {
       const entr1 = Object.entries(arr1[i])
       const entr2 = Object.entries(arr2[i])
@@ -461,7 +461,7 @@ console.log(JSON.parse('{"name":"asd","age":20}'))
 let a1 = 10
 let a2 = 20
 
-;[a1, a2] = [a2, a1]
+  ;[a1, a2] = [a2, a1]
 console.log(a1, a2)
 
 window.onClick = () => {
@@ -471,22 +471,22 @@ window.onClick = () => {
 const pushTheButton = document.getElementById('pushTheButton')
 const pushTheButton2 = document.getElementById('pushTheButton2')
 const anchor = document.getElementById('anchor')
-pushTheButton.onclick = ()=>{
+pushTheButton.onclick = () => {
   alert('Why2???')
 }
 // переназначили
-pushTheButton.onclick = ()=>{
+pushTheButton.onclick = () => {
   alert('Why3???')
 }
 pushTheButton.addEventListener('click', (e) => {
   console.log(e.target)
   alert('Nooo!!!!')
 })
-pushTheButton.addEventListener('click', (event)=>{
+pushTheButton.addEventListener('click', (event) => {
   alert('Nooo more!!!!')
-}, { once :true})
+}, { once: true })
 
-pushTheButton2.onclick = function() {
+pushTheButton2.onclick = function () {
   this.innerText = 'Просил же не нажимать'
 }
 pushTheButton2.addEventListener('click', function (e) {
@@ -506,7 +506,7 @@ document.removeEventListener('click', bodyClick)
 
 pushTheButton2.click()
 
-anchor?.addEventListener('click', (e)=>{
+anchor?.addEventListener('click', (e) => {
   e.preventDefault()
 })
 
@@ -541,12 +541,12 @@ anchor?.addEventListener('click', (e)=>{
 const numpadDiv = document.querySelector('.numpad')
 const displayDiv = document.querySelector('.display')
 
-numpadDiv.addEventListener('click', (e)=>{
+numpadDiv.addEventListener('click', (e) => {
   const target = e.target.closest('button')
   // if (target && target.tagName != 'BUTTON') return
   if (target?.tagName != 'BUTTON') return
   if (displayDiv.textContent.length == 6) displayDiv.textContent = ''
-  displayDiv.textContent += target.dataset.num 
+  displayDiv.textContent += target.dataset.num
 })
 
 String.prototype.boom = function () {
@@ -581,18 +581,18 @@ class User {
     if (planet) this.planet = planet
   }
   sayHi() {
-    return this.name+' '+this.age + ' лет'
+    return this.name + ' ' + this.age + ' лет'
   }
 }
 
 // Использование:
-let userC1 = new User("Иван",1);
+let userC1 = new User("Иван", 1);
 console.log(userC1.sayHi())
 console.log(userC1)
-let userC2 = new User("Ваня",10);
+let userC2 = new User("Ваня", 10);
 console.log(userC2.sayHi())
 console.log(userC2)
-let userC3 = new User("Олег",20, 'Марс');
+let userC3 = new User("Олег", 20, 'Марс');
 console.log(userC3.sayHi())
 console.log(userC3)
 
@@ -607,27 +607,27 @@ const monologDiv = document.getElementById('monolog')
 
 function printText(text, text2) {
   let i
-  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p></p>`)}, i*200)
-  for (i=0; i<text.length; i++) {
+  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p></p>`) }, i * 200)
+  for (i = 0; i < text.length; i++) {
     const char = text[i]
-    setTimeout(function () { monologDiv.insertAdjacentHTML('beforeend', char)},i*200)
+    setTimeout(function () { monologDiv.insertAdjacentHTML('beforeend', char) }, i * 200)
   }
-  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p>${text2}</p>`)}, i*200)
+  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p>${text2}</p>`) }, i * 200)
 }
 
 function printText2(text, text2) {
   let i
-  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p></p>`)}, i*200)
+  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p></p>`) }, i * 200)
   const words = text.split(' ')
   for (i = 0; i < words.length; i++) {
     const word = words[i]
-    setTimeout(function () { monologDiv.insertAdjacentHTML('beforeend', word+' ')},i*200)
+    setTimeout(function () { monologDiv.insertAdjacentHTML('beforeend', word + ' ') }, i * 200)
   }
-  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p>${text2}</p>`)}, i*200)
+  setTimeout(() => { monologDiv.insertAdjacentHTML('beforeend', `<p>${text2}</p>`) }, i * 200)
 }
 
 // printText(t1,t2)
-printText2(t1,t2)
+printText2(t1, t2)
 
 
 // Создать массив «Список покупок». 
@@ -649,7 +649,7 @@ const setPurchasedButton = document.getElementById('setPurchased')
 
 class Goods {
   #name
-  constructor(name, count, buyed=false) {
+  constructor(name, count, buyed = false) {
     this.#name = name
     this.count = count
     this.buyed = buyed
@@ -674,7 +674,7 @@ class ExtraGoods extends Goods {
     this.id = ++ExtraGoods.#id
   }
   isFresh() {
-    return true 
+    return true
   }
   ticked() {
     return super.ticked() + this.created
@@ -707,22 +707,22 @@ exGood.isFresh()
 class PurchaseList {
   purchaseList = [
     new Goods('Сыр', 1, true),
-    {name: 'Колбаса', count: 1, buyed: true},
-    {name: 'Хлеб', count: 1, buyed: false},
-    {name: 'Молоко', count: 1, buyed: false},
-    {name: 'Яйцо', count: 10, buyed: false},
+    { name: 'Колбаса', count: 1, buyed: true },
+    { name: 'Хлеб', count: 1, buyed: false },
+    { name: 'Молоко', count: 1, buyed: false },
+    { name: 'Яйцо', count: 10, buyed: false },
   ]
 
   printPurchase() {
     const tempList = [...this.purchaseList]
-    tempList.sort((a,b)=>a.buyed-b.buyed)
+    tempList.sort((a, b) => a.buyed - b.buyed)
     let html = ''
-    tempList.forEach(el=>{
-      html+=`<li ${el.buyed?'style="color:green"':''}>${el.name} - ${el.count}</li>`
+    tempList.forEach(el => {
+      html += `<li ${el.buyed ? 'style="color:green"' : ''}>${el.name} - ${el.count}</li>`
     })
     purchasesUl.innerHTML = html
   }
-  
+
   addToPurchase(name, count) {
     const elem = this.purchaseList.find(el => el.name == name)
     if (elem) {
@@ -731,7 +731,7 @@ class PurchaseList {
       this.purchaseList.push(new Goods(name, count))
     }
   }
-  
+
   setPurchased(name) {
     const elem = this.purchaseList.find(el => el.name == name)
     if (elem) elem.buyed = true
@@ -742,14 +742,14 @@ class PurchaseList {
 const myList = new PurchaseList()
 myList.printPurchase()
 
-addPurchaseButton.addEventListener('click', ()=>{
+addPurchaseButton.addEventListener('click', () => {
   myList.addToPurchase(purchaseNameInput.value, +purchaseCountInput.value)
   purchaseNameInput.value = ''
   purchaseCountInput.value = ''
   myList.printPurchase()
 })
 
-setPurchasedButton.addEventListener('click', ()=>{
+setPurchasedButton.addEventListener('click', () => {
   myList.setPurchased(purchaseNameInput.value)
   purchaseNameInput.value = ''
   purchaseCountInput.value = ''
@@ -757,20 +757,20 @@ setPurchasedButton.addEventListener('click', ()=>{
 })
 
 
-function myFunc(a,b) {
-  return a+b
+function myFunc(a, b) {
+  return a + b
   // return undefined
 }
 
 const myArrowFunc = () => 2
-const myArrowFunc2 = () => {return 2}
+const myArrowFunc2 = () => { return 2 }
 const myArrowFunc3 = () => {
   // return undefined
 }
 
-const funcResult = myFunc(2,2)
+const funcResult = myFunc(2, 2)
 console.log(funcResult)
-console.log(myFunc(2,2))
+console.log(myFunc(2, 2))
 
 function numberToText(n) {
   if (n < -99 || n > 99) return 'Неверное число'
@@ -928,4 +928,17 @@ window.onerror = function (msg, url, lineNo, columnNo, error) {
 
 // Метод getComputedStyle(elem, [pseudo]) возвращает объект, похожий по формату на style.Только для чтения.
 
+console.log(document.body['id'])
 
+
+// Эти методы работают именно с тем, что написано в HTML.
+console.log(document.body.hasAttribute('iosh'))
+console.log(document.body.getAttribute('slon'))
+document.body.setAttribute('slon', 'Vasilii')
+console.log(document.body.getAttribute('SloN'))
+document.body.removeAttribute('id')
+// Коллекция атрибутов
+// elem.attributes
+
+console.log(document.body.dataset.slon)
+document.querySelectorAll('[data-slon]')
