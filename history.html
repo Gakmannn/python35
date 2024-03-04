@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>History object</title>
+</head>
+
+<body>
+  <button onclick="history.back()">Back</button>
+  <button onclick="history.forward()">Forward</button>
+  <iframe style="display: block; height: 800px; width:100%; border: none;" name='itstepFrame' src='https://itstep.org'>
+  </iframe>
+  <script>
+    window.history.replaceState({ 'record': '0' },
+      "page 0", "?record=0");
+    window.history.pushState({ 'record': '1' },
+      "page 1", "?record=1");
+    window.history.pushState({ 'record': '2' },
+      "page 2", "?record=2");
+    window.history.pushState({ 'record': '3' },
+      "page 3", "?record=3");
+    window.history.back();
+  </script>
+</body>
+
+</html>

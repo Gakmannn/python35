@@ -648,16 +648,16 @@ const addPurchaseButton = document.getElementById('addPurchase')
 const setPurchasedButton = document.getElementById('setPurchased')
 
 class Goods {
-  #name
+  // #name
   constructor(name, count, buyed = false) {
-    this.#name = name
+    this.name = name
     this.count = count
     this.buyed = buyed
     this.#isGood()
   }
-  get name() {
-    return this.#name
-  }
+  // get name() {
+  //   return this.#name
+  // }
   #isGood() {
     return true
   }
@@ -705,13 +705,7 @@ console.log(ExtraGoods.lastId)
 exGood.isFresh()
 
 class PurchaseList {
-  purchaseList = [
-    new Goods('Сыр', 1, true),
-    { name: 'Колбаса', count: 1, buyed: true },
-    { name: 'Хлеб', count: 1, buyed: false },
-    { name: 'Молоко', count: 1, buyed: false },
-    { name: 'Яйцо', count: 10, buyed: false },
-  ]
+  purchaseList = JSON.parse(localStorage.purchaseList)
 
   printPurchase() {
     const tempList = [...this.purchaseList]
@@ -730,11 +724,13 @@ class PurchaseList {
     } else {
       this.purchaseList.push(new Goods(name, count))
     }
+    localStorage.purchaseList = JSON.stringify(this.purchaseList)
   }
 
   setPurchased(name) {
     const elem = this.purchaseList.find(el => el.name == name)
     if (elem) elem.buyed = true
+    localStorage.purchaseList = JSON.stringify(this.purchaseList)
   }
 
 }
@@ -940,5 +936,9 @@ document.body.removeAttribute('id')
 // Коллекция атрибутов
 // elem.attributes
 
+
 console.log(document.body.dataset.slon)
 document.querySelectorAll('[data-slon]')
+
+console.log('location', location)
+console.log('localStorage', localStorage)
