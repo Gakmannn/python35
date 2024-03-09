@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+
+<body>
+
+  <p>Перетащите мяч.</p>
+
+  <img src="https://en.js.cx/clipart/soccer-gate.svg" id="gate" class="droppable">
+
+  <img src="https://en.js.cx/clipart/ball.svg" id="ball">
+
+  <script>
+
+  let str = '';
+
+  // for (let i = 0; i <= 1820; i++) {
+  //   str += String.fromCodePoint(i);
+  // }
+  // console.log(str);
+  
+  const d1sCode = 'А'.codePointAt(0)
+  const d1eCode = 'я'.codePointAt(0)
+  const d2sCode = 'a'.codePointAt(0)
+  const d2eCode = 'z'.codePointAt(0)
+  const d3sCode = 'A'.codePointAt(0)
+  const d3eCode = 'Z'.codePointAt(0)
+  const d4sCode = '0'.codePointAt(0)
+  const d4eCode = '9'.codePointAt(0)
+  function getStringStatistic(string='') {
+    const stats = {
+      letters:0,
+      numbers:0,
+      symbols:0
+    }
+    for (let i=0; i<string.length; i++) {
+      const iCode = string[i].codePointAt(0)
+      // console.log(iCode)
+      if (d1sCode <= iCode && iCode <= d1eCode ||
+          d2sCode <= iCode && iCode <= d2eCode ||  
+          d3sCode <= iCode && iCode <= d3eCode) {
+        stats.letters++
+      } else if (d4sCode <= iCode && iCode <= d4eCode) {
+        stats.numbers++
+      } else {
+        stats.symbols++
+      }
+    }
+    return stats
+  }
+
+  console.log(getStringStatistic('asSDфыФЫ1212/*-+'))
+  
+  
+  x = 10
+
+  const lists = {
+    list1:[
+      {id:2, text:'item2'}
+    ],
+    list2:[
+      {id:1, text:'item1'}
+    ],
+    list3:[
+      {id:3, text:'item3'}
+    ],
+  }
+
+    let currentDroppable = null;
+
+    let initX
+    let initY
+    
+    ball.onmousedown = function (event) {
+      
+      let initX = ball.getBoundingClientRect().left
+      let initY = ball.getBoundingClientRect().top
+
+      let shiftX = event.clientX - ball.getBoundingClientRect().left;
+      let shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+      ball.style.position = 'absolute';
+      ball.style.zIndex = 1000;
+      document.body.append(ball);
+
+      moveAt(event.pageX, event.pageY);
+
+      function moveAt(pageX, pageY) {
+        ball.style.left = pageX - shiftX + 'px';
+        ball.style.top = pageY - shiftY + 'px';
+      }
+
+      function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+
+        if (event.screenX<screenX || 
+            event.screenX>(screenX+outerWidth) ||
+            event.screenY<screenY ||
+            event.screenY>(screenY+outerHeight)) {
+          ball.style.left = initX + 'px';
+          ball.style.top = initY + 'px';
+          document.removeEventListener('mousemove', onMouseMove);
+          ball.onmouseup = null;
+        }
+        
+        ball.hidden = true;
+        let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+        ball.hidden = false;
+
+        if (!elemBelow) return;
+
+        let droppableBelow = elemBelow.closest('.droppable');
+        if (currentDroppable != droppableBelow) {
+          if (currentDroppable) { // null если мы были не над droppable до этого события
+            // (например, над пустым пространством)
+            leaveDroppable(currentDroppable);
+          }
+          currentDroppable = droppableBelow;
+          if (currentDroppable) { // null если мы не над droppable сейчас, во время этого события
+            // (например, только что покинули droppable)
+            enterDroppable(currentDroppable);
+          }
+        }
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+
+      ball.onmouseup = function () {
+        document.removeEventListener('mousemove', onMouseMove);
+        ball.onmouseup = null;
+      };
+
+    };
+
+    function enterDroppable(elem) {
+      elem.style.background = 'pink';
+    }
+
+    function leaveDroppable(elem) {
+      elem.style.background = '';
+    }
+
+    ball.ondragstart = function () {
+      return false;
+    };
+  </script>
+
+
+</body>
+
+</html>
