@@ -9,10 +9,13 @@
       display: grid;
       grid-template-columns: 60px 400px;
     }
+    input[type=number]::-webkit-inner-spin-button {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <form action="form_resut.html">
+  <form action="forms.html" onsubmit="return checkForm(event)">
     <label for="name">Имя</label>
     <input type="text" name="name" id="name" placeholder="Имя" >
     <label for="group">Группа</label>
@@ -43,6 +46,14 @@
     </select>
     <input type="submit" id="button" value="Send">
   </form>
+  <div>
+    type number <input type="number">
+  </div>
+  <div>
+    type text, only number <input id="numberInput" type="text">
+    <p style="color:red" hidden>Проверьте номер телефона</p>
+  </div>
+  <input type="range">
   <button>Не работает</button>
 
   <input type="text" name="genre" id="userGenre" list="genreSuggestions" />
@@ -55,19 +66,37 @@
     <option>Fantasy</option>
   </datalist>
   <script>
+    
+    const nameInput = document.getElementById('numberInput')
     document.forms[0].onsubmit = function(e) {
       console.log('submit')
       e.preventDefault()
-      
     }
     button.onclick =  function(e) {
       console.log('click')
       e.preventDefault()
+      if (nameInput.value.length<12) {
+        nameInput.nextElementSibling.hidden = false
+        return
+      } else {
+        nameInput.nextElementSibling.hidden = true
+      }
+      document.forms[0].submit()
+    }
+    
+
+    function checkForm(event) {
+      return false
+      var nameText = document.getElementById("name").value
+      if (nameText.length < 1) return false
+      return true;
     }
 
-    const nameInput = document.getElementById('name')
     nameInput.addEventListener('input',(e)=>{
-      console.log(e.target.value)
+      if (e.data == '+' && e.target.value == '+') return 
+      if (isNaN(e.data)) {
+        e.target.value = e.target.value.slice(0, e.target.value.length-1)
+      }
     })
     
   </script>
