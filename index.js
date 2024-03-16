@@ -937,8 +937,106 @@ document.body.removeAttribute('id')
 // elem.attributes
 
 
+
 console.log(document.body.dataset.slon)
 document.querySelectorAll('[data-slon]')
 
 console.log('location', location)
 console.log('localStorage', localStorage)
+
+let data
+
+let shiftX
+const thumb = document.querySelector('.thumb')
+const progress = document.querySelector('.progress')
+thumb.addEventListener('pointerdown', (e) => {
+  console.log(data)
+  thumb.setPointerCapture(e.pointerId)
+  shiftX = e.clientX - thumb.getBoundingClientRect().left
+  thumb.addEventListener('pointermove', moveThumb)
+  thumb.addEventListener('pointerup', (e)=>{
+    thumb.removeEventListener('pointermove', moveThumb)
+  }, {once:true})
+})
+
+thumb.parentElement.addEventListener('pointerdown', (e)=>{
+  thumb.style.left = e.clientX - thumb.parentElement.getBoundingClientRect().left + 'px'
+  progress.style.width = e.clientX - thumb.parentElement.getBoundingClientRect().left + 5 + 'px'
+})
+
+function moveThumb (e) {
+  const rect = thumb.parentElement.getBoundingClientRect()
+  let newLeft = e.clientX - shiftX - rect.left
+
+  // if the pointer is out of slider => adjust left to be within the boundaries
+  if (newLeft < 0) {
+    newLeft = 0
+  }
+  let rightEdge = thumb.parentElement.offsetWidth - thumb.offsetWidth;
+  if (newLeft > rightEdge) {
+    newLeft = rightEdge;
+  }
+  // let newLeft = e.clientX - thumb.style.left < rect.left ? rect.left :
+  //               e.clientX - thumb.style.left > rect.right ? rect.right : 
+  //               e.clientX - thumb.style.left
+  thumb.style.left = newLeft + 'px'
+  progress.style.width = newLeft+5 + 'px'
+}
+
+
+{
+  const obj = {
+    a:1,
+    b: [2,3,4,],
+    c:true,
+    d:"false",
+    m() {
+      return this.a+this.b[0]
+    },
+    // toJSON() {
+    //   return `{"a": ${this.a},"message":"not autorised"}`
+    // }
+  }
+  const json = JSON.stringify(obj)
+  console.log(json)
+  const obj2 = JSON.parse(json)
+  // const obj3 = JSON.parse(obj2)
+  console.log(obj2)
+  // console.log(obj3)
+
+  let data 
+  const jsonError = `{a:1}`
+  try {
+    data = JSON.parse(jsonError)
+  } catch(e) {
+    console.log('Неверный формат данных')
+  }
+  console.log(data)
+  
+}
+
+async function getYa() {
+  // const page = await fetch('https://learn.javascript.ru/pointer-events')
+  // if (page.ok) {
+    // const data = await page.text()
+    // console.log(data)
+  // }
+}
+
+getYa()
+
+console.log('page')
+
+
+async function getGit() {
+  const page = await fetch('https://api.github.com/users/gakmannn')
+  if (page.ok) {
+    data = await page.json()
+    console.log(data)
+  }
+}
+
+getGit()
+
+console.log(data)
+

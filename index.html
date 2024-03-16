@@ -31,7 +31,35 @@
       justify-content: space-between; 
       margin: 10px 0;
     }
-
+    .slider {
+      border-radius: 5px;
+      background: #E0E0E0;
+      background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+      width: 310px;
+      height: 15px;
+      margin: 5px;
+      position: relative;
+    }
+    .thumb {
+      touch-action: none;
+      width: 10px;
+      height: 25px;
+      border-radius: 3px;
+      position: absolute;
+      left: 10px;
+      top: -5px;
+      background: blue;
+      cursor: pointer;
+    }
+    .progress {
+      touch-action: none;
+      width: 15px;
+      height: 5px;
+      border-radius: 3px;
+      position: absolute;
+      top: 5px;
+      background: #6868b4;
+    }
   </style>
 </head>
 <body id="page" slon data-slon="iosh" data-iosh="slon">
@@ -63,50 +91,57 @@
     <span id="out"></span>
   </div>
 
-
-<div style="display: flex; justify-content: space-between;">
-  <div style="display: flex; align-items: center;">
-    <ul id="purchases"></ul>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; align-items: center;">
+      <ul id="purchases"></ul>
+      <div>
+        <input style="width: 148px;" id="purchaseName" type="text" placeholder="Название товара">
+        <input style="width: 78px;" id="purchaseCount" type="text" placeholder="Количество">
+        <br>
+        <button id="addPurchase">Добавить</button>
+        <button id="setPurchased">Отметить купленным</button>
+      </div>
+    </div>
     <div>
-      <input style="width: 148px;" id="purchaseName" type="text" placeholder="Название товара">
-      <input style="width: 78px;" id="purchaseCount" type="text" placeholder="Количество">
-      <br>
-      <button id="addPurchase">Добавить</button>
-      <button id="setPurchased">Отметить купленным</button>
-    </div>
-  </div>
-  <div>
-    <div class="display">
-    </div>
-    <div class="numpad">
-      <div >
-        <button data-num="1"><span>1</span></button>
-        <button data-num="2">2</button>
-        <button data-num="3">3</button>
+      <div class="display">
       </div>
-      <div>
-        <button data-num="4">4</button>
-        <button data-num="5">5</button>
-        <button data-num="6">6</button>
-      </div>
-      <div>
-        <button data-num="7">7</button>
-        <button data-num="8">8</button>
-        <button data-num="9">9</button>
-      </div>
-      <div style="justify-content: center;">
-        <button data-num="0">0</button>
+      <div class="numpad">
+        <div >
+          <button data-num="1"><span>1</span></button>
+          <button data-num="2">2</button>
+          <button data-num="3">3</button>
+        </div>
+        <div>
+          <button data-num="4">4</button>
+          <button data-num="5">5</button>
+          <button data-num="6">6</button>
+        </div>
+        <div>
+          <button data-num="7">7</button>
+          <button data-num="8">8</button>
+          <button data-num="9">9</button>
+        </div>
+        <div style="justify-content: center;">
+          <button data-num="0">0</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+  <div class="slider">
+    <div class="progress"></div>
+    <div class="thumb"></div>
+  </div>
 
   <div style="display: flex;">
     <a href="https://disk.yandex.ru/d/rvxmhiSIhDSMCA">Материалы</a>
     <a href="https://disk.yandex.ru/d/LADtnZajP19xeQ">Полный курс HTML</a>
     <a id="anchor" href="https://disk.yandex.ru/d/LADtnZajP19xeQ">Нерабочая ссылка</a>
     <a href="https://wp-kama.ru/id_5875/30-css-selektorov.html">CSS селекторы</a>
+    <a href="https://cheatsheets.super-mark.ru/">Шпоры 1</a>
+    <a href="https://tproger.ru/translations/javascript-cheatsheet">Шпоры 2</a>
+    <a href="https://overapi.com/javascript">Шпоры 3</a>
+    <a href="https://quickref.me/javascript">Шпоры 4</a>
   </div>
   <input value="Нажми меня" onclick="onClick()" type="button">
   <input id="pushTheButton" value="Нажми меня2" type="button">
