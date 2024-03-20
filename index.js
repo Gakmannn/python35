@@ -705,7 +705,7 @@ console.log(ExtraGoods.lastId)
 exGood.isFresh()
 
 class PurchaseList {
-  purchaseList = JSON.parse(localStorage.purchaseList)
+  purchaseList = localStorage.purchaseList ? JSON.parse(localStorage.purchaseList) : []
 
   printPurchase() {
     const tempList = [...this.purchaseList]
